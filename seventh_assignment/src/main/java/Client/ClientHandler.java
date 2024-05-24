@@ -38,7 +38,7 @@ public class ClientHandler implements Runnable {
         while (!socket.isClosed()) {
             String request = "";
             try {
-                bufferedWriter.write("Menu\n O- Chat\n O- File\n O- Exit\n Please enter your command  ");
+                bufferedWriter.write("Menu\n O- Chat\n O- File\n Please enter your command  ");
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
                 request = bufferedReader.readLine();
@@ -82,7 +82,9 @@ public class ClientHandler implements Runnable {
     }
 
     public void downloadFiles() throws IOException {
-        File folder = new File("E:\\Ali\\University\\Shahid Beheshti\\Semester-2\\AdvancedProgramming\\2_TA\\Assignment\\07\\seventh_assignment\\src\\main\\java\\Server\\data");
+//        File folder = new File("E:\\Ali\\University\\Shahid Beheshti\\Semester-2\\AdvancedProgramming\\2_TA\\Assignment\\07\\seventh_assignment\\src\\main\\java\\Server\\data");
+//        File folder = new File("data\\");
+        File folder = new File("seventh_assignment/src/main/java/Server/data");
         listOfFiles = folder.listFiles();
         BufferedInputStream bis = null;
         FileInputStream fis = null;
@@ -112,21 +114,22 @@ public class ClientHandler implements Runnable {
 //                os.write(myByteArray,0,myByteArray.length);
 //                os.flush();
 
-                FileWriter downloadedFile = new FileWriter("E:\\Ali\\University\\Shahid Beheshti\\Semester-2\\AdvancedProgramming\\2_TA\\Assignment\\07\\data\\" + file.getName(), false);
+//                FileWriter downloadedFile = new FileWriter("E:\\Ali\\University\\Shahid Beheshti\\Semester-2\\AdvancedProgramming\\2_TA\\Assignment\\07\\data\\" + file.getName(), false);
+//                FileWriter downloadedFile = new FileWriter("../../../../data" + file.getName(), false);
+                FileWriter downloadedFile = new FileWriter("data\\" + file.getName(), false);
                 PrintWriter printWriter = new PrintWriter(downloadedFile, false);
 //                printWriter.write(Arrays.toString(myByteArray),0,myByteArray.length);
                 printWriter.write(new String(myByteArray, StandardCharsets.UTF_8));
 
                 downloadedFile.close();
-
-
 //                if (os != null) os.close();
             }
         } catch (IOException e) {
             close(socket, bufferedReader, bufferedWriter);
         } finally {
+            if (bis != null) {
             bis.close();
-            fis.close();
+            }
         }
     }
 
